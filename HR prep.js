@@ -971,6 +971,151 @@ function findShortestElement(arr) {
  return str;
 }
 //120
+function getLargestElement(arr) {
+    if (arr.length<1 ){ return 0; }
+    var max = arr[0]
+     for (var i =0;i<arr.length;i++){
+       if(arr[i] > max ){
+         max = arr[i];
+       }
+     }
+   return max;
+  }
+//121
+function computeSumOfAllElements(arr) {
+    var sum = 0;
+    for (var i = 0;i<arr.length;i++){
+      sum+=arr[i];
+    }
+    return sum;
+  }
+//122
+function calculateBillTotal(preTaxAndTipAmount) {
+    var sub= preTaxAndTipAmount;
+    var tip = sub*.15;
+    var tax = .095*sub;
+    return (sub+tip+tax);
+  }
+//123
+function getStringLength(string) {
+    var ct = 0;
+    for (var i in string){
+      ct++;
+    }
+  return ct;
+  }
+//124
+function joinArrayOfArrays(arr) {
+    var out = [];
+    for (var i=0;i<arr.length;i++){
+      for(var e =0;e<arr[i].length;e++){
+        out.push(arr[i][e]);
+      }
+    }
+    return out;
+  }
+//125
+function getProductOfAllElementsAtProperty(obj, key) {
+    var k = obj[key];
+    if (Array.isArray(k) && k.length>0){
+      var prod = 1;
+      for (var i=0;i<k.length;i++){
+        prod*= k[i];
+      }
+      return prod;
+    }
+  return 0;
+  }
+  //126
+  function sumDigits(num) {
+    var arr = num.toString().split('');
+    var sum = 0;
+    var i=0;
+    while(i<arr.length){
+      var conv = Number(arr[i]);
+      if (conv >-1){
+        sum+= conv;
+        i++;
+      }
+      else {
+        sum-=Number(arr[i+1]);
+        i+=2;
+      }
+    }
+  return sum;
+  }
+  //127
+  function getSumOfAllElementsAtProperty(obj, key) {
+    var sum=0;
+    console.log(obj[key]);
+    if (obj.hasOwnProperty(key)){
+      var k = obj[key];
+      if (Array.isArray(k) && k.length>0){
+          for(var i=0;i<k.length;i++){
+            console.log(k[i]);
+            sum+=k[i];
+          }
+      }
+    }
+  return sum;
+  }
+  //128
+  function findShortestWordAmongMixedElements(arr) {
+    var out ='';
+    if (arr.length<1){
+      return out;
+    }
+    else{
+      for (var i= 0; i<arr.length;i++){
+        var ele = arr[i];
+        if (typeof ele==='string'){
+          if (out===''){
+            out = ele;
+          }
+          var len = ele.length;
+          if (len < out.length){
+            out = ele;
+          }
+        }
+      }
+    }
+  return out;
+  }
+  //129
+  function findSmallestNumberAmongMixedElements(arr) {
+    if (arr.length<1){
+      return 0;
+    }
+    var min ='1';
+    for (var i=0;i<arr.length;i++){
+      if (typeof arr[i] ==='number'){
+        if (typeof min==='string'){
+          min = arr[i];
+        }
+        if (arr[i] < min){ min = arr[i];}
+      }
+    }
+    if (typeof min!=='number'){return 0;}
+    return min;
+  }
+  //130
+  function getLongestWordOfMixedElements(arr) {
+    var str = '';
+    if (arr.length<1) { return str;}
+    for (var i=0;i<arr.length;i++){
+      var e = arr[i]
+      if (typeof e==='string'){
+        if(e.length > str.length){
+          str = e;
+        }
+      }
+    }
+    return str;
+  }
+  
+
+
+
 
 
 
