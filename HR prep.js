@@ -1311,11 +1311,70 @@ function computeSumBetween(num1, num2) {
   }
 return sum;
 }
-
-
-
-
-
-
-
-
+// MODULE 01 
+//001
+var answer = {
+  finalValueOfX: -7 // CHANGE 'null' to correct answer
+};
+//002
+var answer = {
+  finalValueOfX: [4,6,1], // FILL THIS IN
+  finalValueOfY: [4,6,6], // FILL THIS IN
+  finalValueOfZ: [4,6,1] // FILL THIS IN
+};
+//003
+function assertEqual(actual, expected, testName) {
+  if (actual === expected) {
+    console.log('passed');
+  } else {
+    console.log('FAILED ['+ testName + ']' + ' Expected \"' + expected + '\", but got \"' + actual + '\"');
+  }
+}
+//004
+function assertArraysEqual(actual, expected, testName) {
+  var eqlen = actual.length === expected.length;
+  var equal = true;
+  for (var i =0; i< actual.length;i++){
+    if (actual[i] !== expected[i]){ equal=false;}
+  }
+  
+  if (eqlen && equal) {
+    console.log('passed'); 
+  } else {
+    console.log('FAILED [' + testName + '] Expected "' + expected +'", but got "' + actual + '"');
+  }
+}
+//005
+function assertObjectsEqual(actual, expected, testName) {
+  var sactual = JSON.stringify(actual);
+  var sexpected = JSON.stringify(expected);
+  if (sactual === sexpected) {
+    console.log('passed');
+  } else {
+    console.log('FAILED [' + testName + '] Expected ' + sexpected + ', but got ' + sactual);
+  }
+}
+//006
+function assertWithinRange(low, high, actual, testName) {
+  if (actual <=high && actual >=low) {
+    console.log('passed'); 
+  } else {
+    console.log('FAIL [' + testName + '] "' + actual + '" not within range ' + low + ' to ' + high);
+  }
+}
+//007
+function assertEqual(actual, expected, testName) {
+  if (actual === expected){
+    console.log('passed');
+  } else {
+    console.log('FAILED ' + testName + ', got ' +actual+ ' but expected '+expected);
+  }
+}
+// Code Under Test:
+function square(n) {
+  return n * n;
+}
+// Calls to 'assertEqual':
+assertEqual(square(2), 4, 'square n');
+assertEqual(square(-3),9, 'square n');
+//008
