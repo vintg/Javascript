@@ -1112,24 +1112,205 @@ function getProductOfAllElementsAtProperty(obj, key) {
     }
     return str;
   }
+  //131
+  function getLargestNumberAmongMixedElements(arr) {
+    console.log(arr);
+    if (arr.length < 1){return 0;}
+    var max = 'a';
+    for (var i = 0; i<arr.length;i++){
+      var e = arr[i];
+      if (typeof e==='number'){
+        if(typeof max==='string'){
+          max = e;
+        }
+        if(e>max){max = e;}
+      }
+    }
+    return (typeof max==='number') ? max:0;
+  }
+  //132
+  function computeSummationToN(n) {
+    var sum = n;
+    for (var i= 0;i<n;i++){
+      sum+=i;
+    }
+  return sum;
+  }
+  //133
+  function convertScoreToGrade(score) {
+    if (score <0 || score >100){
+      return 'INVALID SCORE';
+    }
+    var grade = 'F';
+    if (score > 59){ grade = 'D';}
+    if (score > 69){ grade = 'C';}
+    if (score > 79){ grade = 'B';}
+    if (score > 89){ grade = 'A';}
+    return grade;
+  }
+  //134
+  function convertScoreToGradeWithPlusAndMinus(score) {
+    if (score <0 || score >100){
+      return 'INVALID SCORE';
+    }
+    var grade = 'F';
+    if (score > 59){ grade = 'D';}
+    if (score > 69){ grade = 'C';}
+    if (score > 79){ grade = 'B';}
+    if (score > 89){ grade = 'A';}
+    
+    var single = score.toString()[1];
+    if(score===100){grade+='+';}
+    else{
+      if (single<3){ grade+='-'; }
+      else if (single > 7){grade+='+';}
+    }
+    return grade;
+  }
+  //135
+  function computeFactorialOfN(n) {
+    var fact = n;
+    for (var i = 1; i<n;i++){
+      fact*=i;
+    }
+  return fact;
+  }
+  //136
+  function repeatString(string, num) {
+    if (num===0){return '';}
+    var str=string;
+    for ( var i = 1; i< num;i++){
+      str+=string;
+    }
+    return str;
+  }
+  //137
+  function getLongestOfThreeWords(word1, word2, word3) {
+    var l1 = word1.length;
+    var l2 = word2.length;
+    var l3 = word3.length;
+    
+    var longest= word1;
+    if(l2 > l1){
+      longest= word2;
+    }
+    if (l3 > l2){
+      longest =word3;
+    }
+    return longest;
+  }
+  //138
+  function findShortestOfOfThreeWords(word1, word2, word3) {
+    var l1 = word1.length;
+    var l2 = word2.length;
+    var l3 = word3.length;
+      
+    var shortest= word1;
+    if(l2 < l1){
+      shortest= word2;
+    }
+    if (l3 < l2){
+      shortest =word3;
+    }
+    return shortest;
+  }
+  //139
+  function computeCompoundInterest(principal, interestRate, compoundingFrequency, timeInYears) {
+    var int = Math.pow(1+interestRate/compoundingFrequency,(compoundingFrequency*timeInYears));
+    return principal * (int-1);
+  }
+  //140
+  function modulo(num1, num2) {
+    if (num1 ==='NaN' || num2 ==='NaN'){
+      return NaN;
+    }
+    if (num2===0){
+      return NaN;
+    }
+    if (num1===0){
+      return 0;
+    }
+    
+    var x = Math.abs(num1);
+    var y = Math.abs(num2);
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
+    console.log(x,y);
+    var delta = x-y;
+    while(delta >=0){
+      console.log(x+' - '+y+'...'+delta);
+      delta -=y;
+    }
+    delta+=y;
+    if (num1<0){
+      delta*=-1;
+    }
+    return delta;
+  }
+  //141
+  function multiply(num1, num2) {
+    var pos =true;
+    if (num1===0 || num2 ===0){return 0;}
+    if( (num1 <0 && num2 >0) || (num1>0 && num2<0) ) {
+      pos = false;
+    }
+    var x = Math.abs(num1);
+    var y = Math.abs(num2);
+      
+    var prod = 0;
+    for (var i =1;i<=y;i++){
+      if(pos===true){
+        prod+=x;
+      }
+      else{
+        prod-=x;
+      }
+    }
+   return prod;  
+  }
+//142
+function isOddWithoutModulo(num) {
+  var str =num.toString();
+  var odd = false;
+  var ones = Number(str[str.length-1]);
+  var odds = [1,3,5,7,9];
+  if (odds.indexOf(ones)>=0){
+    odd = true;
+  }
+  return odd;
+}
+//143
+function isEvenWithoutModulo(num) {
+  var str =num.toString();
+  var even = false;
+  var ones = Number(str[str.length-1]);
+  var evens = [0,2,4,6,8];
+  if (evens.indexOf(ones)>=0){
+    even = true;
+  }
+  return even;
+}
+//144
+function multiplyBetween(num1, num2) {
+  if (num2 <= num1 ) {
+    return 0;
+  }
+  var prod = 1;
+  for (var i=num1;i<num2;i++){
+    prod*=i;
+  }
+return prod;
+}
+//145
+function computeSumBetween(num1, num2) {
+  if (num2 <= num1 ) {
+    return 0;
+  }
+  var sum = 0;
+  for (var i=num1;i<num2;i++){
+    sum+=i;
+  }
+return sum;
+}
 
 
 
