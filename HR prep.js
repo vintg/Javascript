@@ -1378,3 +1378,102 @@ function square(n) {
 assertEqual(square(2), 4, 'square n');
 assertEqual(square(-3),9, 'square n');
 //008
+function assertEqual(actual, expected, testName) {
+  if (actual === expected){
+    console.log('passed')
+  } else {
+    console.log('failed ['+testName +'] Expected '+expected + ', but received '+actual);
+  }
+}
+
+// Code under test:
+function every(array, callbackFunction) {
+  var doesEveryElementMatch = true;
+  array.forEach(function(element) {
+    doesEveryElementMatch = callbackFunction(element);
+  })
+  return doesEveryElementMatch;
+}
+// NOTE - every makes use of a callbackFunction. In order to test it properly, you will need to write one. 
+function isNum(element){
+    return (typeof element==='number');
+  }
+// Calls to 'assertEqual':
+var arr1=[1,2,3,4,5];
+var arr2=['1','2','3','4','5'];
+assertEqual(every(arr1,isNum), true, 'isNum');
+assertEqual(every(arr2,isNum), false, 'isNum');
+
+//009
+function assertArraysEqual(actual, expected, testName) {
+  var actual = JSON.stringify(actual);
+  var expected = JSON.stringify(expected);
+  
+  if (actual===expected){
+    console.log('Passed');
+  } else {
+    console.log ('Failed [' + testName + '] Expected ' + expected + ', but got ' + actual);
+  }
+}
+
+// Your code under test:
+function map(array, callbackFunction) {
+  var newArray = [];
+  array.forEach(function(element) {
+    newArray = newArray + callbackFunction(element);
+  });
+  return newArray;
+}
+
+function cubeAll(numbers) {
+  return map(numbers, function(n) {
+    return n * n * n;
+  });
+}
+
+// Your calls to 'assertArraysEqual':
+var arr1 = [0,1,2,3,4,5];
+var arr2 = [0,1,8,27,64,125];
+var arr3 = [0,1,2,3,4,5,6,7];
+var arr4 = ['hi'];
+var arr5 = [0,-1,-2,-3,-4,5];
+
+function cube(element){
+  return Math.pow(element,3);
+}
+
+assertArraysEqual(map(arr1,cube),cubeAll(arr1), 'cubeAll');
+assertArraysEqual(map(arr2,cube),cubeAll(arr1), 'cubeAll');
+assertArraysEqual(map(arr3,cube),cubeAll(arr1), 'cubeAll');
+assertArraysEqual(map(arr4,cube),cubeAll(arr1), 'cubeAll');
+assertArraysEqual(map(arr5,cube),cubeAll(arr1), 'cubeAll');
+
+//010
+function assertObjectsEqual(actual, expected, testName) {
+  actual = JSON.stringify(actual);
+  expected = JSON.stringify(expected);
+  
+  if (actual===expected){
+    console.log('Passed');
+  } else {
+    console.log ('Failed [' + testName + '] Expected ' + expected + ', but got ' + actual);
+  }
+}
+
+// Your code under test:
+function addFullNameProp(obj) {
+  var firstName = obj.firstName;
+  var lastName = obj['lastName'];
+ 
+  if (firstName && lastName) {
+    obj['fullName'] = firstName + ' ' + lastName;
+  }
+  return obj;
+}
+
+// Your calls to 'assertObjectsEqual':
+var obj = {firstName:'hi', lastName:'master'};
+var exobj = {firstName:'hi',lastName:'master',fullName:'hi master'};
+assertObjectsEqual(addFullNameProp(obj), exobj, '[addfullnameprop]');
+
+//011
