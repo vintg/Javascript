@@ -1477,3 +1477,108 @@ var exobj = {firstName:'hi',lastName:'master',fullName:'hi master'};
 assertObjectsEqual(addFullNameProp(obj), exobj, '[addfullnameprop]');
 
 //011
+function average(numbers) {
+  return sum(numbers)/numbers.length;
+}
+
+function sum(numbers) {
+  var sum = 0;
+  for (var i =0;i<numbers.length;i++){
+    sum+=numbers[i];
+  }
+  return sum;
+}
+
+function assertEqual(actual, expected, testName){
+   if (actual===expected){
+    console.log('Passed');
+  } else {
+    console.log ('Failed [' + testName + '] Expected ' + expected + ', but got ' + actual);
+  }
+}
+
+var n = [1,2,3,4,5,6];
+var n2 = [0,0,0];
+var n3 = ['yes',0,0];
+var n4 = [[1,2,3,4],0];
+var n5 = [6,5,4,3,2,1];
+
+assertEqual(sum(n),21,'sum');
+assertEqual(average(n),21/6,'avg');
+assertEqual(average(n2),0,'avg');
+console.log(Number.isNaN(average(n3)));
+console.log(Number.isNaN(average(n4)));
+assertEqual(average(n5),21/6,'avg');
+
+//012
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function decorateClassListWithAges(classList, low, high) {
+  return classList.map(function(name){
+    var obj={name: name};  
+    obj['age'] = getRandomIntInclusive(low,high);
+    return obj;
+  })
+}
+
+function assertInRange (low,high,actual, testName){
+  for (var i=0;i<actual.length;i++){
+    var e = actual[i].age;
+    var inRange = e>=low && e<=high;
+    if(!inRange){
+      console.log('FAILED [' + testName + '] '+ actual + 'not in range'); return;
+    } 
+  }
+  console.log('passed [' + testName + ']'); 
+}
+
+function assertEqual(actual, expected, testName) {
+  if (actual === expected) {
+    console.log('passed [' + testName + ']');
+  } else {
+    console.log('FAILED [' + testName + '] Expected "' + expected + '", but got "' + actual + '"');
+  }
+}
+
+var classList = ["Joe", "Jack", "John", "Fred", "Frank", "Barry", "Larry", "Mary",
+"Harry", "Farrell", "Susan", "Monica", "Keira", "Caroline", "Harriet", "Erica",
+"Luann", "Cheryl", "Beth", "Rupa", "Linda", "Allison", "Nancy", "Dora"];
+
+var low = 10;
+var high = 11;
+var actual = decorateClassListWithAges(classList, low,high);
+assertEqual(Array.isArray(actual), true, 'returns an array');
+assertInRange(low, high, actual, 'add ages to student list between '+low +' and '+high);
+
+//013
+function isIsogram(text) {
+  var chars = text.split('').map(function(char){
+    return char.toLowerCase();
+  });
+  chars = new Set(chars);
+  return text.length === chars.size;
+}
+
+function assertEqual(actual, expected, testName) {
+  if (actual === expected) {
+    console.log('passed [' + testName + ']');
+  } else {
+    console.log('FAILED [' + testName + '] Expected "' + expected + '", but got "' + actual + '"');
+  }
+}
+
+var s1 = 'abcdelkasdja';
+var s2 = 'abcdefghijkl';
+var s3 = '';
+var s4 = 'abcdeFGHiJKL';
+
+assertEqual(isIsogram(s1), false, 'isIsogram');
+assertEqual(isIsogram(s2), true, 'isIsogram');
+assertEqual(isIsogram(s3), true, 'isIsogram');
+assertEqual(isIsogram(s4), true, 'isIsogram');
+
+//014
