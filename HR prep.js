@@ -1582,3 +1582,127 @@ assertEqual(isIsogram(s3), true, 'isIsogram');
 assertEqual(isIsogram(s4), true, 'isIsogram');
 
 //014
+function findMaxRepeatCountInWord(word) {
+  // Break up individual words into individual letters.
+  var ct={};
+  var max = 0;
+  
+  var letters = word.split('').map(function(char){
+    var key = char.toLowerCase();
+    ct[key]? ct[key]++: ct[key]=1;
+    if(ct[key] > max){ 
+      max = ct[key]; 
+    }
+  });
+  return max;
+}
+
+function findFirstWordWithMostRepeatedChars(text) {
+  var maxRepeatCountOverall = 0;
+  var wordWithMaxRepeatCount = '';
+
+  var words = text.split(' ');
+  for (var i in words){
+      var repeatCountForWord = findMaxRepeatCountInWord(words[i]);
+      if (repeatCountForWord > maxRepeatCountOverall){
+        maxRepeatCountOverall = repeatCountForWord;
+        wordWithMaxRepeatCount = words[i];
+      }
+  }
+  return wordWithMaxRepeatCount;
+}
+
+function assertEqual(actual, expected, testName) {
+  if (actual === expected) {
+    console.log('passed [' + testName + ']');
+  } else {
+    console.log('FAILED [' + testName + '] Expected "' + expected + '", but got "' + actual + '"');
+  }
+}
+
+var w1 = 'magical';
+var w2 = 'squeegees';
+var s1 = 'My favorite cars are Poseidon and Taurus';
+
+assertEqual(findMaxRepeatCountInWord(w1),2,'maxrepeat in word');
+assertEqual(findMaxRepeatCountInWord(w2),4,'maxrepeat in word');
+assertEqual(findFirstWordWithMostRepeatedChars(s1),'Poseidon','first word with max repeat count');
+
+//015
+function PhoneNumberFormatter(numbers) {
+  this.numbers = numbers;
+}
+
+PhoneNumberFormatter.prototype.render = function() {
+  var string = '';
+  string+=this.parenthesize(this.getAreaCode())+' '; 
+  string+=this.getExchangeCode()+'-';
+  string+=this.getLineNumber();
+  return string;
+};
+
+PhoneNumberFormatter.prototype.getAreaCode = function() {
+  return this.slice(0,3);
+};
+
+PhoneNumberFormatter.prototype.getExchangeCode = function() {
+  return this.slice(3,6);
+};
+
+PhoneNumberFormatter.prototype.getLineNumber = function() {
+  return this.slice(6,10);
+};
+
+PhoneNumberFormatter.prototype.parenthesize = function(string) {
+  return '(' + string + ')';
+};
+
+PhoneNumberFormatter.prototype.slice = function(start, end) {
+  return this.numbers.slice(start, end).join('');
+};
+
+function assertEqual(actual, expected, testName) {
+  if (actual !== expected) {
+    console.log('FAILED [' + testName + '] Expected "' + expected + '", but got "' + actual + '"');
+  } else {
+    console.log('PASSED [' + testName + ']');
+  }
+}
+
+var n1 = new PhoneNumberFormatter([6,4,6,5,9,8,5,8,3,7]);
+assertEqual(n1.render(), '(646) 598-5837', 'phone number formatter');
+
+//016
+function findLongestPalindrome(sentence) {
+  // split sentence into words
+  var words = sentence.split(' ');
+  words = words.filter(isPalindrome).sort(sortAscendingByLength);
+  return words.pop();
+}
+
+function reverseString(string) {
+  return string.split('').reverse().join('');
+}
+
+function isPalindrome(word) {
+  var alpha = /^[a-z]+$/;
+  word = word.toLowerCase();
+  return word === reverseString(word) &&
+    word.match(alpha);
+}
+
+function sortAscendingByLength(a, b) {
+  return (a.length-b.length); 
+}
+
+function assertEqual(actual, expected, testName) {
+  if (actual === expected) {
+  	console.log('PASSED [' + testName + ']');
+  } else {
+    console.log('FAILED [' + testName + '] Expected "' + expected + '", but got "' + actual + '"');
+  }
+}
+
+assertEqual(findLongestPalindrome('hihi whatahw issi thissiht ??????????????'), 'thissiht', 'longest palindrome in sentence');
+
+//017
