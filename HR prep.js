@@ -1767,3 +1767,155 @@ right = ["Brunello Cucinelli, tasselled black low-top lace-up, 1000\nBrunello Cu
 assertEqual(genInventory(currentInventory), right, 'generate descriptions for a given inventory list');
 
 //018
+
+function sum(prices){
+  return prices.reduce(function(p1, p2){
+    return p1 + p2;
+  });
+}
+
+function avg(prices){
+  return sum(prices)/prices.length;
+}
+
+function getPriceList (shoeList){
+  return shoeList.shoes.map(function(shoe){
+    return shoe.price;
+  });
+}
+
+function getDesignerAvg (shoeList) {
+  return {
+    name: shoeList.name,
+    averagePrice: avg(getPriceList(shoeList))
+  }
+}
+
+function renderAvgInv(inventory){
+  return {designers: inventory.map(getDesignerAvg)};
+}
+
+function assertEqual(actual, expected, testName) {
+  if (actual === expected) {
+    console.log('passed [' + testName + ']');
+  } else {
+    console.log('FAILED [' + testName + '] Expected "' + expected + '", but got "' + actual + '"');
+  }
+}
+
+function assertObjectsEqual(actual, expected, testName) {
+  actual = JSON.stringify(actual);
+  expected = JSON.stringify(expected);
+  if (actual === expected) {
+    console.log('passed [' + testName + ']');
+  } else {
+    console.log('FAILED [' + testName + '] Expected ' + expected + ', but got ' + actual);
+  }
+}
+
+var inventory = [
+  {
+    name: 'Brunello Cucinelli',
+    shoes: [
+      {name: 'tasselled black low-top lace-up', price: 1000},
+      {name: 'tasselled green low-top lace-up', price: 1100},
+      {name: 'plain beige suede moccasin', price: 950},
+      {name: 'plain olive suede moccasin', price: 1050}
+    ]
+  },
+  {
+    name: 'Gucci',
+    shoes: [
+      {name: 'red leather laced sneakers', price: 800},
+      {name: 'black leather laced sneakers', price: 900}
+    ]
+  }
+];
+
+var numbers = [1,2,3,4,5,6,7,8,9,10];
+assertEqual(sum(numbers), 55, 'sum');
+assertEqual(avg(numbers), 5.5, 'avg');
+
+var shoes1 = inventory[0];
+assertObjectsEqual(getPriceList(shoes1), [1000,1100,950,1050], 'get shoe price list');
+assertObjectsEqual(getDesignerAvg(shoes1),{name: 'Brunello Cucinelli', averagePrice: 1025}, 'get designer shoe price average' );
+
+var expected = {
+  'designers': [
+    {
+      'name': 'Brunello Cucinelli',
+      'averagePrice': 1025
+    },
+    {
+      'name': 'Gucci',
+      'averagePrice': 850
+    }
+  ]
+};
+
+assertObjectsEqual (renderAvgInv(inventory), expected, 'render object containing designer name and avg prices');
+
+//019
+function getShoeDesc(shoeList){
+  return shoeList.shoes.map(function(shoe){
+    return shoe.name + ', ' + shoe.price;
+  });
+}
+
+function matchColor(shoeList, color){
+  return shoeList.filter(function(shoe){
+    return shoe.includes(color);
+  });
+}
+
+function renderInvList(inventory,color){
+  return inventory.map(function(designerList){
+    return matchColor(getShoeDesc(designerList), color).join('\n');
+  });  
+}
+
+function assertObjectsEqual(actual, expected, testName) {
+  actual = JSON.stringify(actual);
+  expected = JSON.stringify(expected);
+  if (actual === expected) {
+    console.log('passed [' + testName + ']');
+  } else {
+    console.log('FAILED [' + testName + '] Expected ' + expected + ', but got ' + actual);
+  }
+}
+
+var inventory = [
+  {
+    name: 'Brunello Cucinelli',
+    shoes: [
+      {name: 'tasselled black low-top lace-up', price: 1000},
+      {name: 'tasselled green low-top lace-up', price: 1100},
+      {name: 'plain beige suede moccasin', price: 950},
+      {name: 'plain olive suede moccasin', price: 1050}
+    ]
+  },
+  {
+    name: 'Gucci',
+    shoes: [
+      {name: 'red leather laced sneakers', price: 800},
+      {name: 'black leather laced sneakers', price: 900}
+    ]
+  }
+];
+
+var one = inventory[0];
+var color = 'black';
+var right= ["tasselled black low-top lace-up, 1000", "tasselled green low-top lace-up, 1100", "plain beige suede moccasin, 950", "plain olive suede moccasin, 1050"];
+
+assertObjectsEqual(getShoeDesc(one), right, 'get shoe descriptions for a designer');
+
+var desc = getShoeDesc(one);
+right = ["tasselled black low-top lace-up, 1000"];
+  
+assertObjectsEqual(matchColor(desc,color), right, 'returns shoe desc if color match');
+
+right = ["tasselled black low-top lace-up, 1000", "black leather laced sneakers, 900"];
+
+assertObjectsEqual(renderInvList(inventory,color), right,'renders list of inventory matching color');
+
+//020
