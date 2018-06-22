@@ -606,4 +606,119 @@ right = ["tasselled black low-top lace-up, 1000", "black leather laced sneakers,
 assertObjectsEqual(renderInvList(inventory,color), right,'renders list of inventory matching color');
 
 //020
+function getShoes(inventory){
+  return inventory.reduce(function(designer, shoeList){
+    return designer.concat(shoeList.shoes);
+  }, []);
+}
 
+function getShoeDesc(shoeList){
+  return shoeList.map(function(shoe){
+    return shoe.name;
+  });
+}
+
+function wordObj(shoe, query){
+  var words = shoe.split(' ');
+  return {
+      'nameWords': words,
+      'targetWordIndex': Number(locate(words,query))
+  };
+}
+
+function locate(wordArray, query){
+  for(var i in wordArray){
+    var word = wordArray[i];
+    if (word.indexOf(query)===0){ 
+      return i; 
+    }
+  }
+}
+
+function containsQuery(description, query){
+  return description.indexOf(query)>=0;
+}
+
+function renderMatchList(inventory,query){
+  var shoeDesc = getShoeDesc(getShoes(inventory));
+  var result = [];
+  for (var i in shoeDesc){ 
+    var shoe = shoeDesc[i];
+   
+    if (containsQuery(shoe,query)){
+      result.push(wordObj(shoe,query));
+    }
+  }
+  return result;
+}
+  
+function assertObjectsEqual(actual, expected, testName) {
+    actual = JSON.stringify(actual);
+    expected = JSON.stringify(expected);
+    if (actual === expected) {
+      console.log('passed [' + testName + ']');
+    } else {
+      console.log('FAILED [' + testName + '] Expected ' + expected + ', but got ' + actual);
+    }
+ }
+  
+  var inventory = [
+    {
+      name: 'Brunello Cucinelli',
+      shoes: [
+        {name: 'tasselled black low-top lace-up', price: 1000},
+        {name: 'tasselled green low-top lace-up', price: 1100},
+        {name: 'plain beige suede moccasin', price: 950},
+        {name: 'plain olive suede moccasin', price: 1050}
+      ]
+    },
+    {
+      name: 'Gucci',
+      shoes: [
+        {name: 'red leather laced sneakers', price: 800},
+        {name: 'black leather laced sneakers', price: 900}
+      ]
+    }
+  ];
+  
+  var expected = [
+    {
+      "nameWords": [
+        "tasselled",
+        "black",
+        "low-top",
+        "lace-up"
+      ],
+      "targetWordIndex": 3
+    },
+    {
+      "nameWords": [
+        "tasselled",
+        "green",
+        "low-top",
+        "lace-up"
+      ],
+      "targetWordIndex": 3
+    },
+    {
+      "nameWords": [
+        "red",
+        "leather",
+        "laced",
+        "sneakers"
+      ],
+      "targetWordIndex": 2
+    },
+    {
+      "nameWords": [
+        "black",
+        "leather",
+        "laced",
+        "sneakers"
+      ],
+      "targetWordIndex": 2
+    }
+  ];
+  
+  var query = 'lace';
+  assertObjectsEqual(renderMatchList(inventory, query), expected, 'array of objects containing all words matching query and index of match');
