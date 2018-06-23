@@ -126,3 +126,58 @@ function oddNumberOut(numbers, type){
     idx++;
   }
 }
+
+//004 transpose
+function compareLen(str1,str2){
+  return (str1.length>str2.length);
+}
+
+function getCharArrays(str){
+  return str.split('');
+}
+
+function padSpace(strArr, n){
+  for (var i =0; i<n;i++){
+    strArr.push(' ');
+  }
+  return strArr;
+}
+
+function transposeTwoStrings(str1, str2){
+  var n = 0;
+  var str1 = getCharArrays(str1);
+  var str2 = getCharArrays(str2);
+  
+  if (compareLen(str1, str2)){
+    n = str1.length - str2.length;
+    str2 = padSpace(str2, n);
+  } else {
+    n = str2.length - str1.length;
+    str1 = padSpace(str1, n);
+  }
+  
+  var out = '';
+  
+  for (var i= 0; i<str1.length;i++){
+    out+= '\n'+str1[i]+' '+str2[i];
+  }
+  return out;
+}
+
+function assertObjectsEqual (actual, expected, testName){
+  var actual = JSON.stringify(actual);
+  var expected = JSON.stringify(expected);
+  
+  if (actual===expected){
+    console.log('PASSED');
+  } else {
+    console.log('FAILED [' + testName + '] expected: \n'+expected + '\nbut got:\n'+actual);
+  }
+}
+
+var str1 = 'Hello';
+var str2 = 'World';
+
+var actual = transposeTwoStrings(str1,str2);
+var expected = "\nH W\ne o\nl r\nl l\no d";
+assertObjectsEqual(actual, expected, 'transpose two strings');
