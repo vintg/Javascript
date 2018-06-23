@@ -181,3 +181,58 @@ var str2 = 'World';
 var actual = transposeTwoStrings(str1,str2);
 var expected = "\nH W\ne o\nl r\nl l\no d";
 assertObjectsEqual(actual, expected, 'transpose two strings');
+
+//005
+function findPairForSum (array, targetSum){
+  var dA = differenceArray(array, targetSum);
+  return checkSum(array, dA, targetSum);
+}
+
+function differenceArray(array,targetSum){
+  return array.map(function(element){
+    return targetSum - element;   
+  });
+}
+
+function matchingPairExists(array, diffArray){
+  return diffArray.map(function(num){
+    return array.includes(num);
+  })
+}
+
+function checkSum(array, diffArray, targetSum){
+  var pairList = matchingPairExists(array, diffArray);
+  if(pairList.includes(true)){
+    var idx=  pairList.indexOf(true);
+    return [array[idx], targetSum - array[idx]]; 
+  } else{
+    console.log('no matching pair found');
+  }
+}
+
+function assertObjectsEqual(actual, expected, testName){
+  var actual = JSON.stringify(actual);  
+  var expected = JSON.stringify(expected);
+  if(actual ===expected){
+    console.log('PASSED');
+  } else {
+    console.log('FAILED [' + testName + '] expected:\n'+expected+'\nbut got:\n'+actual);
+  }
+}
+
+var array = [3, 34, 4, 12, 5, 2];
+var targetSum = 9;
+
+var actual = findPairForSum(array, targetSum);
+var expected = [4,5];
+assertObjectsEqual(actual,expected, 'find pair of numbers that sum to the target number');
+
+targetSum = 7;
+actual = findPairForSum(array,targetSum);
+expected = [3,4];
+assertObjectsEqual(actual,expected, 'find pair of numbers that sum to the target number');
+
+targetSum = 1;
+actual = findPairForSum(array,targetSum);
+expected = undefined ;
+assertObjectsEqual(actual,expected, 'find pair of numbers that sum to the target number');
