@@ -236,3 +236,80 @@ targetSum = 1;
 actual = findPairForSum(array,targetSum);
 expected = undefined ;
 assertObjectsEqual(actual,expected, 'find pair of numbers that sum to the target number');
+
+//006 rotate this
+function locate(string, char){
+  return string.indexOf(char);  
+}
+
+function isRotated(str1, str2) {
+  var char1 = str1.charAt(0);
+  var idx = locate(str2, char1);
+  var rotate = str2.slice(idx).concat(str2.slice(0,idx));
+  console.log(rotate);
+  return str1 ===rotate;
+}
+
+function assertEqual(actual,expected,testName){
+  if (actual===expected){
+    console.log('PASSED');
+  } else {
+    console.log('FAILED [' + testName +'] expected: \n'+expected+'\bbut got:\n'+actual);
+  }
+}
+
+var str1= 'hello world';
+var str2= 'orldhello w';
+
+var actual = isRotated(str1, str2);
+var expected = true;
+
+assertEqual(actual, expected, 'one string is a rotated version of another');
+
+//007
+function getMid(array){
+  return Math.floor(array.length/2);
+}
+
+function search(array, value) {
+  
+  var iter = 0;
+  var slice = array.slice(0);
+  var midpt = getMid(slice);
+  
+  while (midval!=value && iter <10){
+    iter++;
+    var midval = array[midpt];
+ 
+    if (midval > value){
+      slice = array.slice(0,midpt);
+      midpt = getMid(slice);
+    }
+    else if(midval < value){
+      slice = array.slice(midpt);
+      midpt += getMid(slice);
+    }
+    else{
+      return midpt;
+    }
+  }
+}
+
+function assertEqual(actual,expected,testName){
+  if (actual===expected){
+    console.log('PASSED');
+  } else {
+    console.log('FAILED [' + testName +'] \nexpected: '+expected+' but got: '+actual);
+  }
+}
+
+var sortedArray = [1, 3, 16, 22, 31, 33, 34];
+
+for (var i in sortedArray){
+  var value = sortedArray[i];
+  var expected = Number(i); 
+  
+  var actual = search(sortedArray, value);
+  assertEqual ( actual, expected, 'find index of value '+value+ ' in sorted array');
+}
+
