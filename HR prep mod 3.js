@@ -11,8 +11,7 @@ function flipPairs(string){
     }
   
   if (len!=0){
-    //add last char
-    out+=string.slice(-1,1);//out+= string[len-1]; 
+    out+=string.slice(-1,1);
   } 
   
   return out;
