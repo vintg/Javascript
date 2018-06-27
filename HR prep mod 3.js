@@ -42,14 +42,14 @@ function reverseString(str) {
 }
 
 function flipEveryNChars(string, n){
-  var m = string.length;
-  var r = m%n;
+  var len  = string.length;
+  var out ='';
+  var r= len%n;
   
-  var out= '';
-  for(var i = 0; i<m;i+=n){
-     out+= reverseString(string.slice(i,i+n)); 
+  for (var i=0;i<len;i+=n){
+    out+=reversed(string.slice(i,i+n));
   }
-  out+= string.slice(m-r,m);
+  
   return out;
 }
 
