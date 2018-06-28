@@ -80,26 +80,6 @@ function main(input, n, expected){
 }
 
 //003
-evens = "2 4 7 8 10"; // => 3 - Third number is odd, while the rest of the numbers are even
-
-odds = "1 10 1 1";  //=> 2 - Second number is even, while the rest of the numbers are odd
-
-var actual = detectOutlierValue(evens);
-expected = 3;
-assertEqual(actual, expected, 'find index of minority even-odd number in string');
-
-actual = detectOutlierValue(odds);
-expected = 2;
-assertEqual(actual, expected, 'find index of minority even-odd number in string');
-
-function assertEqual(actual, expected, testName){
-  if (actual===expected){
-    console.log('PASSED');
-  } else {
-    console.log ('FAILED [' + testName + '] expected: \n'+ expected + '\bbut got:\n'+actual);
-  }
-}
-
 function detectOutlierValue(numString){
   var numbers = numString.split(' ');
   var type = majorityType(numbers);
@@ -108,7 +88,7 @@ function detectOutlierValue(numString){
 
 function majorityType(numbers){
   var ct = 0;
-  for (var n =0 ;n<3; n++){
+  for (var n =0 ;n<numbers.length; n++){
     ct+= isEven(Number(numbers[n]));
   }
   return ct>1 ? 0: 1; 
@@ -131,6 +111,25 @@ function oddNumberOut(numbers, type){
     idx++;
   }
 }
+
+function assertEqual(actual, expected, testName){
+  if (actual===expected){
+    console.log('PASSED');
+  } else {
+    console.log("FAILED ["+ testName+'] expected: '+expected + ', but got: '+actual);
+  }
+}
+
+var evens = "2 4 7 8 10"; // => 3 - Third number is odd, while the rest of the numbers are even
+var odds = "1 10 1 1";  //=> 2 - Second number is even, while the rest of the numbers are odd
+
+var actual = detectOutlierValue(evens);
+expected = 3;
+assertEqual(actual, expected, 'find index of minority even-odd number in string');
+
+actual = detectOutlierValue(odds);
+expected = 2;
+assertEqual(actual, expected, 'find index of minority even-odd number in string');
 
 //004 transpose
 function compareLen(str1,str2){
