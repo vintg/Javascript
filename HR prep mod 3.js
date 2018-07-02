@@ -1,19 +1,13 @@
 //MODULE 3 
 //001 Flipper
 function flipPairs(string){
-  var len = string.length;
   var out = '';
-  
-  for (var i=0; i<len;i+=2){
-    if (string[i+1]!=undefined){
-              out+=string[i+1];}
-    out+=string[i];
-    }
-  
-  if (len!=0){
-    out+=string.slice(-1,1);
-  } 
-  
+  for (var i=1;i < string.length; i+=2){
+    out+=string[i]+string[i-1];
+  }
+  if (string.length%2!==0){
+    out+= string.slice(-1);
+  }
   return out;
 }
 
