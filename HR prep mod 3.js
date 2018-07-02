@@ -71,35 +71,36 @@ function main(input, n, expected){
 
 //003
 function detectOutlierValue(numString){
-  var numbers = numString.split(' ');
-  var type = majorityType(numbers);
-  return oddNumberOut(numbers, type);
+  var nums = numArray(numString);
+  
+  var type = 'even';
+  if (majorityType(nums)>1){
+    type = 'odd';
+  } 
+  return oddNumOut(nums, type)+1;
 }
 
-function majorityType(numbers){
-  var ct = 0;
-  for (var n =0 ;n<numbers.length; n++){
-    ct+= isEven(Number(numbers[n]));
-  }
-  return ct>1 ? 0: 1; 
+function majorityType(numArray){
+  return numArray.reduce(function(sum, num){
+    return sum+=num%2;
+  }, 0);
 }
 
-function isEven(number){
-  return Math.abs(number)%2==0;
-}
-
-function oddNumberOut(numbers, type){
-  var idx = 1;
-  for (var i in numbers){
-    var n = Number(numbers[i]);
-    
-    if (type===1 && isEven(n)===true){
-        return idx;
-    } else if (type===0 && isEven(n)===false){
-        return idx;
+function oddNumOut(numArray, type){
+  for (var i =0; i<numArray.length;i++){
+    if (type==='odd' && numArray[i]%2===0){
+      return i;
+    } 
+    else if (type==='even' && numArray[i]%2!==0){
+      return i;
     }
-    idx++;
   }
+}
+
+function numArray(string){
+  return string.split(' ').map(function(char){
+    return Number(char);
+  });
 }
 
 function assertEqual(actual, expected, testName){
