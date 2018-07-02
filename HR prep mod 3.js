@@ -31,19 +31,16 @@ function assertValidInput(string, n){
   return n>1 && typeof string ==='string';
 }
 
-function reverseString(str) {
-    return str.split('').reverse().join('');
+function flipEveryNChars(s, n){
+  var out = '';
+  for (var i =0; i<s.length;i+=n){
+    out+=reverseStr(s.slice(i,i+n));
+  }
+  return out;
 }
 
-function flipEveryNChars(string, n){
-  var len  = string.length;
-  var out ='';
-  
-  for (var i=0;i<len;i+=n){
-    out+=reversed(string.slice(i,i+n));
-  }
-  
-  return out;
+function reverseStr(s){
+  return s.split('').reverse().join('');
 }
 
 function assertEqual(actual, expected, testName){
