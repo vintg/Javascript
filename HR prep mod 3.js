@@ -44,7 +44,6 @@ function reverseString(str) {
 function flipEveryNChars(string, n){
   var len  = string.length;
   var out ='';
-  var r= len%n;
   
   for (var i=0;i<len;i+=n){
     out+=reversed(string.slice(i,i+n));
