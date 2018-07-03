@@ -64,7 +64,20 @@ function square(n) {
 // Calls to 'assertEqual':
 assertEqual(square(2), 4, 'square n');
 assertEqual(square(-3),9, 'square n');
+
 //008
+function every(array, callbackFunction) {
+  var doesEveryElementPass = true;
+  array.forEach(function(element) {
+     if (callbackFunction(element)===false){ doesEveryElementPass= false; }
+  });
+  return doesEveryElementPass;
+}
+
+function isNum(element){
+    return (typeof element==='number');
+}
+
 function assertEqual(actual, expected, testName) {
   if (actual === expected){
     console.log('passed')
@@ -72,20 +85,7 @@ function assertEqual(actual, expected, testName) {
     console.log('failed ['+testName +'] Expected '+expected + ', but received '+actual);
   }
 }
-
-// Code under test:
-function every(array, callbackFunction) {
-  var doesEveryElementMatch = true;
-  array.forEach(function(element) {
-    doesEveryElementMatch = callbackFunction(element);
-  })
-  return doesEveryElementMatch;
-}
-// NOTE - every makes use of a callbackFunction. In order to test it properly, you will need to write one. 
-function isNum(element){
-    return (typeof element==='number');
-  }
-// Calls to 'assertEqual':
+  
 var arr1=[1,2,3,4,5];
 var arr2=['1','2','3','4','5'];
 assertEqual(every(arr1,isNum), true, 'isNum');
