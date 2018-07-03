@@ -123,40 +123,37 @@ expected = 2;
 assertEqual(actual, expected, 'find index of minority even-odd number in string');
 
 //004 transpose
-function compareLen(str1,str2){
-  return (str1.length>str2.length);
-}
-
-function getCharArrays(str){
-  return str.split('');
-}
-
-function padSpace(strArr, n){
-  for (var i =0; i<n;i++){
-    strArr.push(' ');
-  }
-  return strArr;
-}
-
-function transposeTwoStrings(str1, str2){
-  var n = 0;
-  var str1 = getCharArrays(str1);
-  var str2 = getCharArrays(str2);
+function transposeTwoStrings(strArray){
+  var out= splitChar(strArray);
+  var s1 = out[0];
+  var s2 = out[1];
   
-  if (compareLen(str1, str2)){
-    n = str1.length - str2.length;
-    str2 = padSpace(str2, n);
-  } else {
-    n = str2.length - str1.length;
-    str1 = padSpace(str1, n);
-  }
+  var s2longer= compareLen (s1,s2);
+  var n =s1.length;
+  if (s2longer){n = s2.length;}
   
   var out = '';
-  
-  for (var i= 0; i<str1.length;i++){
-    out+= '\n'+str1[i]+' '+str2[i];
+                
+  for (var i= 0 ; i< n; i++){
+    out+='\n';  
+    if (s1[i]!==undefined){
+      out+= s1[i]+' ';
+    }
+    if (s2[i]!==undefined){
+      out+= s2[i];
+    }        
   }
   return out;
+}
+
+function splitChar(strArray){
+  return strArray.map(function(e){
+    return e.split('');
+  });
+}
+
+function compareLen(s1,s2){
+  return s2.length>s1.length;
 }
 
 function assertObjectsEqual (actual, expected, testName){
@@ -170,38 +167,36 @@ function assertObjectsEqual (actual, expected, testName){
   }
 }
 
-var str1 = 'Hello';
-var str2 = 'World';
+var input =['Hello','World'];
 
-var actual = transposeTwoStrings(str1,str2);
+var actual = transposeTwoStrings(input);
 var expected = "\nH W\ne o\nl r\nl l\no d";
 assertObjectsEqual(actual, expected, 'transpose two strings');
 
 //005
-function findPairForSum (array, targetSum){
-  var dA = differenceArray(array, targetSum);
-  return checkSum(array, dA, targetSum);
-}
-
-function differenceArray(array,targetSum){
-  return array.map(function(element){
-    return targetSum - element;   
+function difference(array, sum){
+  return array.map(function(n){
+    return sum-n;
   });
 }
 
-function matchingPairExists(array, diffArray){
-  return diffArray.map(function(num){
-    return array.includes(num);
-  })
+function checkInclude(difference, original){
+  for (var i = 0; i< difference.length; i++){
+    if (original.includes(difference[i])){
+      return i;
+    }
+  }
 }
 
-function checkSum(array, diffArray, targetSum){
-  var pairList = matchingPairExists(array, diffArray);
-  if(pairList.includes(true)){
-    var idx=  pairList.indexOf(true);
-    return [array[idx], targetSum - array[idx]]; 
-  } else{
-    console.log('no matching pair found');
+function findPairForSum(input, targetSum){
+  var dA = difference(input, targetSum);
+  var idx = checkInclude(dA, input);
+  
+  if (idx>-1){
+      return [input[idx], targetSum-input[idx]];
+  }
+  else {
+    return ('sum pair not found');
   }
 }
 
@@ -229,10 +224,21 @@ assertObjectsEqual(actual,expected, 'find pair of numbers that sum to the target
 
 targetSum = 1;
 actual = findPairForSum(array,targetSum);
-expected = undefined ;
+expected = 'sum pair not found' ;
 assertObjectsEqual(actual,expected, 'find pair of numbers that sum to the target number');
 
 //006 rotate this
+
+/* easy method
+function isRotated(str1, str2) {
+  return doublestr(str1).includes(str2);
+}
+
+function doublestr(string){
+  return string+string;
+}
+*/
+
 function locate(string, char){
   return string.indexOf(char);  
 }
@@ -262,33 +268,31 @@ var expected = true;
 assertEqual(actual, expected, 'one string is a rotated version of another');
 
 //007
+function search(array, value) {
+  var copy = array.slice(0);
+  var midpt = getMid(copy);
+  var iter = 0;
+  
+  while (mid!== value && iter <=array.length/2){
+    var mid = array[midpt];
+    iter++;
+    
+    if (mid > value){
+      copy = array.slice(0,midpt);
+      midpt = getMid(copy);
+    } 
+    else if (mid < value) {
+      copy = array.slice(midpt);
+      midpt += getMid(copy);
+    }
+  }
+  return (array[midpt]===value)? midpt: null;
+}
+
 function getMid(array){
   return Math.floor(array.length/2);
 }
 
-function search(array, value) {
-  
-  var iter = 0;
-  var slice = array.slice(0);
-  var midpt = getMid(slice);
-  
-  while (midval!=value && iter <10){
-    iter++;
-    var midval = array[midpt];
- 
-    if (midval > value){
-      slice = array.slice(0,midpt);
-      midpt = getMid(slice);
-    }
-    else if(midval < value){
-      slice = array.slice(midpt);
-      midpt += getMid(slice);
-    }
-    else{
-      return midpt;
-    }
-  }
-}
 
 function assertEqual(actual,expected,testName){
   if (actual===expected){
@@ -308,3 +312,5 @@ for (var i in sortedArray){
   assertEqual ( actual, expected, 'find index of value '+value+ ' in sorted array');
 }
 
+actual = search(sortedArray, 21);
+assertEqual ( actual, null, 'find index of value '+value+ ' in sorted array');
