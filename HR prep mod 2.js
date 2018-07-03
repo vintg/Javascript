@@ -243,11 +243,8 @@ assertInRange(low, high, actual, 'add ages to student list between '+low +' and 
 
 //013
 function isIsogram(text) {
-  var chars = text.split('').map(function(char){
-    return char.toLowerCase();
-  });
-  chars = new Set(chars);
-  return text.length === chars.size;
+  const setA = new Set(text.toLowerCase());
+  return setA.size===text.length;
 }
 
 function assertEqual(actual, expected, testName) {
