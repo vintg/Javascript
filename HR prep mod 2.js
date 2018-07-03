@@ -266,8 +266,28 @@ assertEqual(isIsogram(s3), true, 'isIsogram');
 assertEqual(isIsogram(s4), true, 'isIsogram');
 
 //014
+
+/* alt solution
 function findMaxRepeatCountInWord(word) {
-  // Break up individual words into individual letters.
+ var chars = word.split('').sort();
+
+ var max = 0; 
+ var count = 1;
+  
+  for (var i =0; i<chars.length-1;i++){
+    if (chars[i+1]!==chars[i]){
+      if (count > max) { max = count; }
+      count = 1;
+    } else{
+      count++;
+    }
+  }
+  return max;
+}
+*/
+
+function findMaxRepeatCountInWord(word) {
+
   var ct={};
   var max = 0;
   
