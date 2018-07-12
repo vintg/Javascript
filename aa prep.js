@@ -124,3 +124,37 @@ function platin(words){
     }
     return idx;
   }
+
+  function narcNum(n){
+    var digits = n.toString().split('');
+    var sum = 0;
+    for (var i in digits){
+      sum+=Math.pow(Number(digits[i]), digits.length);
+    }  
+    return n===sum;
+  }
+
+  function collatz(n){
+    var ct = 0;
+    while (n>1){
+      ct++;
+      if (n%2==0){n=.5*n;}
+      else { n=n*3 + 1;}
+    }
+  return ct+1;
+  }
+  
+  function longestCollatz(){
+    var max = 0;
+    var n =1000000;
+    for (var i=1000000; i>0;i--){
+      var c = collatz(i);
+      if (c> max){
+        max = c;
+        n = i;
+      }
+    }
+    return [n,max];
+  }
+
+  
