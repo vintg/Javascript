@@ -157,4 +157,23 @@ function platin(words){
     return [n,max];
   }
 
-  
+var input = [2,8,6,4,5,5];
+var target = 10;
+
+function idxSumPairs(array,target){
+  var out = [];
+  if(array.length>1){
+    for (var i =0; i<array.length;i++){
+      for (var j=i+1; j<array.length; j++){
+        if (array[i] + array[j]===target){
+          out.push([i,j]);
+        }
+      }
+    }
+    return out;
+  } else{
+    return 'No pairs found.';
+  }
+}
+
+console.log(idxSumPairs(input,target));
