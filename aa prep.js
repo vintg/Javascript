@@ -17,6 +17,12 @@
     }
     return true; 
   }
+
+  function rem(s,n){
+    var ar =s.split('');
+    ar.splice(n,1);
+    return ar.join('');
+  }
   
   function xbonacci(array, n){
     const summation=(add, sum) => add + sum;
@@ -177,3 +183,119 @@ function idxSumPairs(array,target){
 }
 
 console.log(idxSumPairs(input,target));
+
+function nthPrime(n){
+  var ct=0;
+  var i =1;
+  while (ct<n){
+    i++;
+    if(isPrime(i)){
+      ct++;
+    }
+  }
+  return i;
+}
+
+function isPrime(n){
+  if (n<2){return false;}
+  for (var i =2;i<n;i++){
+    if (n%i===0){return false;}
+  }
+  return true;
+}
+
+function sumPropDiv(n){
+  var pD = [];
+  for (var i=0;i<n;i++){
+    if (n%i===0){
+      pD.push(i);
+    }
+  }
+  return sumAr(pD);
+}
+
+function sumAr(array){
+  return array.reduce(function(n,sum){
+    return sum+n;
+  },0);
+}
+
+function amicable(n1,n2){
+  if ((sumPropDiv(n1)===n2)&& (sumPropDiv(n2)===n1)){
+    return true;
+  } else{
+  return false;
+  }
+}
+
+function sum10kami(){
+  
+  var out = [];
+  for (var i =0;i< 10000;i++){
+   var z = sumPropDiv(i);
+    if (z<10000){
+      out.push(i);
+    }
+   }
+  let set = new Set(out);
+  let array = Array.from(set);
+  console.log(sumAr(array));
+}
+
+function gpf(n){
+  var k = 1;
+  var iter=  0;
+ 
+  while(k<n){ 
+    k = nextPrime(k);
+    n = reduce(n,k);
+  }
+  
+  return k;
+}
+
+function reduce(n,x){
+  while(n%x===0){
+    n/=x;
+  }
+  return n;
+}
+
+function nextPrime(n){
+  var i = n+1;
+  while(!isPrime(i)){
+    i++;
+  }  
+  return i;
+}
+
+function isPrime(n){
+  if (n<2){return false;}
+  for (var i =2;i<n;i++){
+    if (n%i===0){return false;}
+  }
+  return true;
+}
+
+function bubbleSort(array) {
+  var swapped;
+  do {
+    swapped = false;
+    for(var i = 0; i < array.length; i++) {
+      if(array[i] && array[i + 1] && array[i] > array[i + 1]) {
+        swap(array, i, i + 1);
+        swapped = true;
+      }
+    }
+  } while(swapped);
+  return array;
+}
+
+function swap(array, i, j) {
+  var temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
+}
+
+
+
