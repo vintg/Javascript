@@ -24,6 +24,17 @@
     return ar.join('');
   }
   
+  function bigram(s){
+    words = s.split(' ');
+    var max = 0;
+    var bigstring='';
+    for (var i=0;i< words.length - 1;i++){
+      var s2 = words[i]+' '+words[i+1];
+      if (s2.length > max) { max = s2.length; bigstring = s2;}
+    }
+    return [bigstring, max];
+  }
+  
   function xbonacci(array, n){
     const summation=(add, sum) => add + sum;
     var len = array.length;
